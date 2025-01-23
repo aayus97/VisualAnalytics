@@ -1,0 +1,624 @@
+
+
+/* General page styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  padding-top: 20px; /* Adding some space at the top for the buttons */
+}
+
+
+
+.container {
+  margin-left: 20px; /* Add some spacing from the controls container */
+  width: calc(100% - 300px); /* Adjust width to avoid overlapping controls */
+}
+
+
+/* Page Header (Title Section) */
+.page-header {
+  text-align: center;
+  padding: 15px 5%; /* Reduce padding and add side spacing for width adjustment */
+  background-color: #f4f4f4; /* Subtle background color */
+  border-bottom: 1px solid #ddd; /* Subtle separation */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: sticky; /* Makes the header stick to the top */
+  top: 0; /* Aligns it to the top */
+  z-index: 1000; /* Ensures it stays above other elements */
+  max-width: 95%; /* Allow the title section to appear wider */
+  margin: 0 auto; /* Center-align the title block horizontally */
+}
+
+/* Title Text */
+.page-header h1 {
+  font-size: 2rem; /* Slightly reduce the title font size */
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.page-header p {
+  font-size: 1rem; /* Slightly reduce the subtitle font size */
+  margin: 5px 0 0;
+  color: #666;
+}
+
+
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 1.8rem; /* Slightly smaller title on smaller devices */
+  }
+
+  .page-header p {
+    font-size: 0.9rem; /* Smaller subtitle on smaller devices */
+  }
+}
+
+
+/* Additional Media Query for Very Small Screens */
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem; /* Further reduce title size */
+  }
+
+  .page-header p {
+    font-size: 1rem; /* Further adjust subtitle size */
+  }
+}
+
+/* Chart Switcher Button */
+.chart-switcher {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  margin: 10px 20px 0 auto; /* Space between the header and button, right alignment */
+  width: calc(100% - 40px); /* Ensure the button group fits within the page with some padding */
+  gap: 10px; /* Add spacing between the buttons */
+}
+
+
+
+
+
+.controls {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.selectors {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+
+svg text {
+  font-family: "Arial", sans-serif;
+}
+
+path {
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+rect:hover {
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+
+select {
+  padding: 5px;
+  font-size: 16px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+
+.chart-container {
+  position: relative; /* Allows absolutely positioned children */
+  width: 900px;
+  height: 900px; /* Keep the fixed height to maintain proportions */
+  margin-top: 40px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  display: flex;
+  justify-content: center; /* Center the chart horizontally */
+  align-items: center; /* Center vertically if needed */
+}
+
+#chart {
+  position: relative; /* Necessary for positioning the suggestions inside */
+  width: 100%;
+  height: 100%;
+  padding-top: 50px; /* Space for the description at the top */
+  border: 1px solid #ddd;
+  background-color: #f0f0f0;
+}
+
+
+.word-cloud {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 100%; /* Makes the word cloud circular */
+  overflow: hidden; /* Ensures words don't overflow out of the circle */
+  pointer-events: none;
+  z-index: 10; /* Ensure word cloud is on top of the chart */
+  text-align: center;
+}
+
+
+
+#word-cloud {
+  display: flex;
+  justify-content: center;  /* Horizontal centering */
+  align-items: center;      /* Vertical centering */
+  height: 100%;
+  width: 100%;
+  position: absolute;       /* Ensure it stays within the radial chart */
+  pointer-events: none;     /* Prevent interference with mouse events */
+  z-index: 10;              /* Ensure it is above the radial chart */
+}
+
+
+
+
+
+#word-cloud svg {
+  position: absolute;      /* Allow for absolute positioning of the word cloud */
+  top: 72px;               /* Adjust this value to move the word cloud vertically */
+}
+
+.tooltip {
+  position: absolute;
+  opacity: 1;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  font-family: "Arial", sans-serif;
+  font-size: 14px;
+  max-width: 200px;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
+.description p {
+  margin: 0 0 8px; /* Reduced margins for tighter spacing */
+}
+
+.description p:last-child {
+  margin-bottom: 0; /* Remove margin for the last paragraph */
+}
+
+.description strong {
+  color: #4CAF50; /* Highlight keywords with a green tone */
+}
+
+
+/* Footer Styles */
+.footer {
+  width: 100%; /* Full-width footer */
+  text-align: center; /* Center align the content */
+  padding: 20px;
+  background: #f4f4f4; /* Light gray background for footer */
+  color: #333;
+  border-top: 2px solid #ddd;
+  font-size: 14px;
+  margin-top: auto; /* Push footer to the bottom of the page */
+}
+
+.footer a {
+  color: #007BFF; /* Blue color for links */
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Controls Container */
+.controls-container {
+  position: fixed; /* Fix the controls to the viewport */
+  top: 25%; /* Adjust this to position it vertically */
+  right: 10px; /* Align to the right edge */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Space between items */
+  padding: 10px;
+  background-color: #f9f9f9; /* Light background for distinction */
+  border: 1px solid #ddd; /* Subtle border for structure */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  z-index: 1000; /* Ensure it stays above other content */
+  max-width: 200px;
+}
+
+/* Chart Switcher Buttons */
+.chart-switcher {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Space between buttons */
+}
+
+.chart-switcher button {
+  padding: 6px 10px; /* Compact button size */
+  font-size: 12px; /* Smaller font size */
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #4CAF50, #388E3C); /* Green gradient */
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.chart-switcher button:hover {
+  background: linear-gradient(135deg, #388E3C, #2E7D32);
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Time Slider Container */
+#time-slider-container {
+  display: flex;
+  flex-direction: column; /* Stack label, slider, and value */
+  gap: 5px; /* Space between label and slider */
+}
+
+#time-slider-container label {
+  font-size: 12px; /* Smaller label size */
+  font-weight: bold;
+  color: #333;
+}
+
+#time-slider {
+  width: 100%; /* Full width slider within container */
+  appearance: none;
+  height: 8px;
+  background: linear-gradient(90deg, #4CAF50, #2E7D32); /* Green gradient */
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+#time-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ffffff; /* White thumb for contrast */
+  border: 2px solid #4CAF50;
+  border-radius: 50%; /* Circular thumb */
+  cursor: pointer;
+}
+
+#time-slider-value {
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Dropdown Container */
+#dropdown-container {
+  display: flex;
+  flex-direction: column; /* Stack labels and dropdowns */
+  gap: 10px; /* Add spacing between items */
+}
+
+#dropdown-container label {
+  font-size: 12px; /* Smaller label size */
+  font-weight: bold;
+  color: #333;
+}
+
+#dropdown-container select {
+  width: 160px; /* Full width dropdown */
+  padding: 4px 8px; /* Compact padding */
+  font-size: 12px; /* Smaller font size */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Filters Container */
+#filters-container {
+  display: flex;
+  flex-direction: column; /* Stack filter groups vertically */
+  gap: 8px; /* Smaller spacing between filter groups */
+  padding: 8px; /* Compact padding for uniformity */
+  background-color: #f9f9f9; /* Light background for distinction */
+  border: 1px solid #ddd; /* Subtle border for structure */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width for better alignment */
+  max-width: 180px; /* Restrict width to match controls-container */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Label Styling */
+#filters-container label {
+  font-size: 12px; /* Smaller label size for uniformity */
+  font-weight: bold; /* Highlight labels */
+  color: #333; /* Neutral text color */
+  margin-bottom: 3px; /* Compact spacing below labels */
+}
+
+/* Dropdowns */
+#filters-container select {
+  width: 80%; /* Full width dropdown */
+  padding: 4px; /* Compact padding */
+  font-size: 12px; /* Smaller font size */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #fff; /* White background for contrast */
+  color: #333; /* Neutral text color */
+  box-shadow: none; /* Remove extra shadow for minimal design */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+#filters-container select:hover,
+#filters-container select:focus {
+  border-color: #4CAF50; /* Green border on hover or focus */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Time Spent on Social Media */
+.time-spent-container {
+  display: flex;
+  flex-direction: column; /* Stack label and sliders vertically */
+  gap: 8px; /* Compact spacing between elements */
+}
+
+.time-spent-title {
+  font-size: 12px; /* Match label size */
+  font-weight: bold;
+  color: #333;
+}
+
+/* Time Sliders */
+.time-sliders {
+  display: flex;
+  align-items: center; /* Align text and slider */
+  gap: 8px; /* Smaller space between slider and value */
+}
+
+#time-slider-min,
+#time-slider-max {
+  width: 100%; /* Full width for responsiveness */
+  appearance: none;
+  height: 6px; /* Reduce slider height */
+  background: linear-gradient(90deg, #4CAF50, #2E7D32); /* Green gradient */
+  border-radius: 3px; /* Smaller border radius */
+  outline: none;
+  cursor: pointer;
+}
+
+#time-slider-min::-webkit-slider-thumb,
+#time-slider-max::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px; /* Smaller thumb width */
+  height: 10px; /* Smaller thumb height */
+  background: #ffffff; /* White thumb for contrast */
+  border: 1px solid #4CAF50;
+  border-radius: 50%; /* Circular thumb */
+  cursor: pointer;
+}
+
+.time-sliders span {
+  font-size: 10px; /* Compact and smaller text */
+  color: #666; /* Subtle text color */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #filters-container {
+    max-width: 100%; /* Allow full width on smaller devices */
+    padding: 6px; /* Reduce padding */
+  }
+
+  #filters-container label {
+    font-size: 10px; /* Adjust label size */
+  }
+
+  #filters-container select {
+    font-size: 10px; /* Adjust dropdown font size */
+    padding: 4px; /* Compact padding */
+  }
+
+  .time-spent-container {
+    gap: 6px; /* Reduce gap between elements */
+  }
+
+  .time-sliders span {
+    font-size: 9px; /* Smaller text */
+  }
+}
+
+@media (max-width: 480px) {
+  #filters-container {
+    gap: 6px; /* Further reduce gap between filter groups */
+  }
+
+  #filters-container label {
+    font-size: 10px; /* Smaller label size */
+  }
+
+  #filters-container select {
+    font-size: 10px; /* Adjust dropdown font size */
+    padding: 3px; /* Compact padding */
+  }
+
+  #time-slider-min,
+  #time-slider-max {
+    height: 4px; /* Reduce slider height further */
+  }
+
+  .time-sliders span {
+    font-size: 8px; /* Smaller text for compact view */
+  }
+}
+
+
+#line-chart-controls {
+  display: flex; /* Align elements horizontally */
+  flex-direction: column; /* Stack the label and dropdown */
+  gap: 5px; /* Add space between label and dropdown */
+  background-color: #f9f9f9; /* Light background for distinction */
+  padding: 10px; /* Add padding for spacing */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 200px; /* Restrict width for compact layout */
+  margin: 10px auto; /* Center the container */
+}
+
+#line-chart-controls label {
+  font-size: 14px; /* Adjust label font size */
+  font-weight: bold; /* Highlight label text */
+  color: #333; /* Neutral text color */
+}
+
+#line-category-selector {
+  width: 100%; /* Full width dropdown */
+  padding: 5px; /* Add padding for better touch target */
+  font-size: 14px; /* Adjust dropdown font size */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  color: #333; /* Neutral text color */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+#line-category-selector:hover,
+#line-category-selector:focus {
+  border-color: #4CAF50; /* Green border on hover or focus */
+  outline: none; /* Remove default focus outline */
+}
+
+
+/* Word Cloud Background */
+.word-cloud-backgrounds {
+position: absolute;
+top: 100;
+left: 100;
+width: 100vw; /* Span full container width */
+height: 100vh; /* Span full container height */
+z-index: 1; /* Layer the word cloud below the chart elements */
+opacity: 0.2; /* Make the word cloud subtly visible */
+pointer-events: none; /* Allow interactions to pass through */
+}
+
+/* Chart */
+#background-word-cloud {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw; /* Full viewport width */
+height: 100vh; /* Full viewport height */
+z-index: -1; /* Behind all content */
+pointer-events: none; /* Prevent interaction */
+opacity: 0.15; /* Subtle effect */
+background-color: #f9f9f9;
+clip-path: polygon(
+  0 0, 
+  100% 0, 
+  100% 100%, 
+  0 100%, 
+  0 calc(var(--chart-top, 0px)), 
+  calc(var(--chart-left, 0px)) calc(var(--chart-top, 0px)), 
+  calc(var(--chart-left, 0px)) calc(var(--chart-top, 0px) + var(--chart-height, 0px)), 
+  0 calc(var(--chart-top, 0px) + var(--chart-height, 0px))
+); /* Exclude the figure area */
+}
+
+.page-header,
+.footer {
+position: relative; /* Ensure these elements appear above the background */
+z-index: 1;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+padding: 15px;
+}
+
+
+#suggestions-container {
+  display: none; /* Initially hidden */
+  position: absolute; /* Position inside the chart container */
+  bottom: 130px; /* Align at the bottom of the chart */
+  left: 20px; /* Provide some space from the left edge */
+  width: calc(100% - 40px); /* Take most of the chart width, leaving padding */
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Internal padding */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  z-index: 10; /* Ensure it appears above the chart */
+}
+
+#suggestions-container h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #444;
+  font-weight: bold;
+}
+
+#suggestions-container p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+#suggestions-container strong {
+  color: #555;
+}
+
+.page-header2 {
+  display: none;
+}

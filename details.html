@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Details Page</title>
+  <link rel="stylesheet" href="details.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    // Prevent manipulation of the parent frame
+    if (window !== window.top) {
+      console.log("details.html running inside iframe1");
+    }
+  </script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Prevent content overflow */
+      box-sizing: border-box; /* Standardize box model */
+    }
+  </style>
+  
+</head>
+<body>
+  <div id="details-container">
+    <div id="basic-info">
+      <h2>Person Details</h2>
+      <p><strong>Age:</strong> <span id="age"></span></p>
+      <p><strong>Sex:</strong> <span id="sex"></span> <img id="sex-icon" alt="Sex Icon"></p>
+      <div id="time-info">
+        <p><strong>Time Spent:</strong> <span id="time-spent"></span></p>
+        <div id="time-visual" class="visual"></div>
+      </div>
+    </div>
+
+    <div id="visualizations">
+      <div id="comments" class="visual">
+        <h3>Comments:</h3>
+        <p id="comment-text"></p>
+      </div>
+      <div id="depression-anxiety">
+        <h3>Mental Health Levels</h3>
+        <div class="level">
+          <strong>Depression Level:</strong>
+          <span id="depression"></span>
+          <img id="depression-icon" alt="Depression Icon">
+        </div>
+        <div class="level">
+          <strong>Anxiety Level:</strong>
+          <span id="anxiety"></span>
+          <img id="anxiety-icon" alt="Anxiety Icon">
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="back-button">Back to Main Visuals</button>
+  <script src="details.js"></script>
+</body>
+</html>

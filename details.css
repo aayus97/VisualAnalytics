@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  #details-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 250px; /* Push the details-container down */
+  }
+  
+  #basic-info {
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #basic-info h2 {
+    color:#4CAF50;
+  }
+  
+  #basic-info img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  
+  #time-info {
+    margin-top: 20px;
+  }
+  
+  #visualizations {
+    flex-grow: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .visual {
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #comments p {
+    white-space: pre-wrap;
+    font-family: "Courier New", Courier, monospace;
+    color: #333;
+  }
+  
+  #depression-anxiety .level {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  #depression-anxiety img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+  }
+  
+  #time-visual svg {
+    width: 100%;
+    height: 50px;
+  }
+  
+  #back-button {
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color:#4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #back-button:hover {
+    background-color:#4CAF50;
+  }
+  

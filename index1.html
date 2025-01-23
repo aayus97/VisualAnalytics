@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health and Social Media Usage</title>
+  <link rel="stylesheet" href="style1.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+  
+</head>
+<body>
+  <!-- Word Cloud Background -->
+  <svg id="background-word-cloud"></svg>
+
+  <header class="page-header">
+    <h1>Scroll and Stress: Social Media’s Impact on Student Wellness</h1>
+    <p>Data-Driven Insights into Anxiety, Depression, and Digital Well-Being</p>
+  </header>
+
+  <main class="content">
+    <section class="introduction">
+      <h2>Introduction</h2>
+      <div class="intro-content">
+        <p>
+          According to the World Health Organization (WHO), half of all mental health conditions start in adolescence, yet most remain undetected or untreated.
+        </p>
+        <p>
+          Depression is the fourth leading cause of illness and disability among adolescents. Social media usage patterns can have profound effects on mental health, influencing depression, anxiety, and sleep quality.
+        </p>
+      </div>
+    </section>
+    
+    
+
+
+    <section class="did-you-know">
+      <h2>Did You Know?</h2>
+      <div class="facts-container">
+        <div class="fact-box">
+          <h3>50%</h3>
+          <p>Half of all mental health conditions start by the age of 14, but most remain undetected or untreated.</p>
+        </div>
+        <div class="fact-box">
+          <h3>36%</h3>
+          <p>Students spending over 5 hours daily on social media report moderate anxiety levels.</p>
+        </div>
+        <div class="fact-box">
+          <h3>63%</h3>
+          <p>Females make up the majority of respondents in this dataset, with higher depression levels reported.</p>
+        </div>
+        <div class="fact-box">
+          <h3>45%</h3>
+          <p>Nearly half of all sentiments expressed in social media are negative, emphasizing mental health concerns.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-project">
+      <h2>What We Aim to Achieve</h2>
+      <p>
+        This project explores how social media habits influence university students' mental health, using real-world data to provide actionable insights.
+      </p>
+      <div class="icons-with-text">
+        <div class="icon-item">
+          <img src="images/data-insights.png" alt="Data Insights" title="Data Insights">
+          <p>Explore screen time's effects on mental health.</p>
+        </div>
+        <div class="icon-item">
+          <img src="images/student.png" alt="Students" title="Students">
+          <p>Identify which student groups are most affected.</p>
+        </div>
+        <div class="icon-item">
+          <img src="images/socialmedia.png" alt="Mental Health" title="Mental Health">
+          <p>Understand social media as a tool for resilience.</p>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+
+    <section class="about-datasets">
+      <h2>The Data Behind the Story</h2>
+      <div class="dataset-cards">
+        <div class="dataset-card">
+          <h3>Social Media and Mental Health (SMMH)</h3>
+          <p>Age, Gender, Social Media Time, and Mental Health Indicators.</p>
+          <a href="https://www.kaggle.com/datasets/souvikahmed071/social-media-and-mental-health" target="_blank" class="btn">Explore Dataset</a>
+        </div>
+        <div class="dataset-card">
+          <h3>MMC2 (Mental Health in Bangladesh)</h3>
+          <p>Social media usage and psychometric assessments of young adults.</p>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8627992/" target="_blank" class="btn">Explore Dataset</a>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="visualizations-section">
+     <h1 class="centered">Explore the Data</h1> 
+      <!-- <p>
+        Use the buttons below to navigate between different visualizations. These include:
+        <ul>
+          <li><strong>Grid View:</strong> An overview of individual data points.</li>
+          <li><strong>Gender Bar Chart:</strong> A distribution of gender in the dataset.</li>
+          <li><strong>Age Bar Chart:</strong> Age ranges and their distribution.</li>
+        </ul>
+      </p> -->
+
+      <div class="buttons">
+        <button id="grid-view">Dataset OverView</button>
+        <button id="gender-bar-chart">Gender Distribution</button>
+        <button id="age-bar-chart">Age Distribution</button>
+      </div>
+      <div id="visualization-container">
+        <!-- Visualization -->
+        <svg id="visualization" width="800" height="800"></svg>
+        <!-- Scorecard -->
+        <div id="scorecard" class="scorecard">
+          <h3>Statistics</h3>
+          <p id="total-count">Total: 0</p>
+          <p id="male-count">Males: 0 (0%)</p>
+          <p id="female-count">Females: 0 (0%)</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script1.js"></script>
+  <script>
+    // Background Word Cloud Function
+    function updatePageBackgroundWordCloud(data) {
+      const wordCloudSvg = d3.select("#background-word-cloud");
+      wordCloudSvg.selectAll("*").remove(); // Clear previous word cloud
+
+      const width = window.innerWidth *4;
+      const height = window.innerHeight *4;
+
+      const wordCounts = data.reduce((acc, d) => {
+        d.words.forEach(word => {
+          acc[word] = (acc[word] || 0) + 1;
+        });
+        return acc;
+      }, {});
+
+      const wordCloudData = Object.keys(wordCounts).map(word => ({
+        text: word,
+        size: wordCounts[word] * 10, // Scale size based on frequency
+      }));
+
+      const layout = d3.layout.cloud()
+        .size([width, height])
+        .words(wordCloudData)
+        .rotate(() => (Math.random() > 0.5 ? 0 : 90))
+        .fontSize(d => d.size)
+        .on("end", draw);
+
+      layout.start();
+
+      function draw(words) {
+        wordCloudSvg
+          .attr("width", width)
+          .attr("height", height);
+
+        wordCloudSvg.selectAll("text")
+          .data(words)
+          .enter()
+          .append("text")
+          .style("font-size", d => `${d.size}px`)
+          .style("fill", (_, i) => d3.schemeCategory10[i % 10])
+          .attr("text-anchor", "middle")
+          .attr("transform", d => `translate(${d.x},${d.y})rotate(${d.rotate})`)
+          .text(d => d.text);
+      }
+    }
+
+    // Load dataset and call the word cloud function
+    d3.csv("dataset.csv").then(data => {
+      const transformedData = data.map(d => ({
+        words: [d.Word_1, d.Word_2, d.Word_3, d.Word_4, d.Word_5, d.Word_6, d.Word_7, d.Word_8, d.Word_9, d.Word_10]
+      }));
+      updatePageBackgroundWordCloud(transformedData);
+    });
+  </script>
+</body>
+</html>

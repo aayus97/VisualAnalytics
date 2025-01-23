@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combined Visualizations</title>
+  <!-- Include CSS for both visualizations -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Mental Health and Social Media</h1>
+  </header>
+
+  <main class="content">
+    <!-- First Visualization Section -->
+    <section id="first-visualization">
+      <h2>Introduction</h2>
+      <p>
+        According to the World Health Organization (WHO), half of all mental health conditions start in adolescence, yet most remain undetected or untreated. Depression is the fourth leading cause of illness and disability among adolescents. Social media usage patterns can have profound effects on mental health, influencing depression, anxiety, and sleep quality.
+      </p>
+
+      <h2>About the Datasets</h2>
+      <div class="dataset-box">
+        <h3>Dataset 1: Social Media and Mental Health (SMMH)</h3>
+        <p>
+          This dataset explores the relationship between social media usage and mental health. It includes attributes like Age, Gender, Time Spent on Social Media, and various mental health indicators.
+        </p>
+        <p>
+          <strong>Data Access:</strong> <a href="https://www.kaggle.com/datasets/souvikahmed071/social-media-and-mental-health" target="_blank">Kaggle</a>
+        </p>
+      </div>
+      <div class="dataset-box">
+        <h3>Dataset 2: MMC2</h3>
+        <p>
+          This dataset examines the use of social networking sites and mental health issues among young adults in Bangladesh. It includes data on demographics, social media usage, and psychometric assessments.
+        </p>
+        <p>
+          <strong>Data Access:</strong> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8627992/" target="_blank">PMC Article</a>
+        </p>
+      </div>
+
+      <h2>Explore the Data</h2>
+      <p>
+        Use the buttons below to navigate between different visualizations. These include:
+        <ul>
+          <li><strong>Grid View:</strong> An overview of individual data points.</li>
+          <li><strong>Gender Bar Chart:</strong> A distribution of gender in the dataset.</li>
+          <li><strong>Age Bar Chart:</strong> Age ranges and their distribution.</li>
+        </ul>
+      </p>
+
+      <div class="buttons">
+        <button id="grid-view">Grid View</button>
+        <button id="gender-bar-chart">Gender Bar Chart</button>
+        <button id="age-bar-chart">Age Bar Chart</button>
+      </div>
+      <div id="visualization-container">
+        <svg id="visualization" width="800" height="800"></svg>
+        <div id="scorecard" class="scorecard">
+          <h3>Statistics</h3>
+          <p id="total-count">Total: 0</p>
+          <p id="male-count">Males: 0 (0%)</p>
+          <p id="female-count">Females: 0 (0%)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Second Visualization Section -->
+    <section id="second-visualization">
+        <header class="page-header">
+            <h1>Scroll and Stress: Social Media's Impact on Student Wellness</h1>
+            <p>An interactive visualization of anxiety and depression severity indicators</p>
+        </header>
+    
+        <div class="controls-container">
+            <!-- Chart Switcher -->
+            <div class="chart-switcher">
+                <button id="flatten-button">Compare the Impact</button>
+                <button id="radial-button" style="display:none;">Show the Sentiments</button>
+                <button id="line-button">Line Chart</button>
+            </div>
+    
+            <!-- Line Chart Controls (Hidden Initially) -->
+            <div id="line-chart-controls" style="display: none;">
+                <label for="line-category-selector">Select Category:</label>
+                <select id="line-category-selector">
+                    <option value="All">All</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Minimal">Minimal</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Moderately Severe">Moderately Severe</option>
+                    <option value="Severe">Severe</option>
+                </select>
+            </div>
+    
+            <!-- Time Slider -->
+            <div id="time-slider-container">
+                <label for="time-slider">Year:</label>
+                <input type="range" id="time-slider" min="2000" max="2023" step="1" value="2000">
+                <span id="time-slider-value">2000</span>
+            </div>
+    
+            <!-- Dropdown Selectors -->
+            <div id="dropdown-container">
+                <label for="student-filter">Full Time Student:</label>
+                <select id="student-filter">
+                    <option value="All">All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+    
+                <label for="category-selector">Category:</label>
+                <select id="category-selector">
+                    <option value="GAD7 Category">Anxiety</option>
+                    <option value="PHQ9 Category">Depression</option>
+                </select>
+            </div>
+    
+            <!-- Filters Container for Stacked Bar Chart -->
+            <div id="filters-container" class="stacked-bar-filters" style="display: none;">
+                <label for="gender-selector">Gender:</label>
+                <select id="gender-selector">
+                    <option value="All">All</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+    
+                <label for="age-group-selector">Age Group:</label>
+                <select id="age-group-selector">
+                    <option value="All">All</option>
+                    <option value="18-20">18-20</option>
+                    <option value="21-23">21-23</option>
+                    <option value="24-25">24-25</option>
+                </select>
+    
+                <!-- Time Spent on Social Media -->
+                <div class="time-spent-container">
+                    <label for="time-slider" class="time-spent-title">Time Spent on Social Media:</label>
+                    <div class="time-sliders">
+                        <input type="range" id="time-slider-min" min="0" max="24" value="0">
+                        <span>Min: <span id="min-hours">0</span> hours</span>
+                    </div>
+                    <div class="time-sliders">
+                        <input type="range" id="time-slider-max" min="0" max="24" value="24">
+                        <span>Max: <span id="max-hours">24</span> hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Container for both the radial chart and word cloud -->
+        <div id="chart-container" class="chart-container">
+            <!-- Placeholder for Radial Chart -->
+            <div id="chart" class="chart"></div>
+    
+            <!-- Placeholder for Word Cloud (centered inside the chart) -->
+            <div id="word-cloud" class="word-cloud"></div>
+        </div>
+    
+        <!-- Tooltip for chart interaction -->
+        <div id="tooltip" class="tooltip"></div>
+    </section>
+    
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mental Health and Social Media Project</p>
+    <p>Developed by Aayush Paudel | Contact: aayush.paudel@student-cs.fr</p>
+  </footer>
+
+  <!-- Include JavaScript for both visualizations -->
+  <script src="script.js"></script>
+  <script src="script1.js"></script>
+</body>
+</html>

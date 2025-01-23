@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combined Visualizations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .iframe-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    iframe {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    #iframe1 {
+      height: 1600px;
+    }
+    #iframe2 {
+      height: 1200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="iframe-container">
+    <iframe src="index1.html" id="iframe1" title="Frame 1"></iframe>
+    <iframe src="index2.html" id="iframe2" title="Frame 2"></iframe>
+  </div>
+
+  <script>
+    const iframe2 = document.getElementById("iframe2");
+    const iframe2Src = iframe2.src;
+
+    // Ensure iframe2 stays static
+    iframe2.addEventListener("load", () => {
+      if (iframe2.src !== iframe2Src) {
+        iframe2.src = iframe2Src; // Reset to original if changed
+        console.log("iframe2 reset to original src");
+      }
+    });
+  </script>
+</body>
+</html>

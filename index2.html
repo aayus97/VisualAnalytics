@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Chart with Word Cloud</title>
+  <link rel="stylesheet" href="style2.css">
+  <script src="https://d3js.org/d3.v7.min.js">
+    // Initial rendering of the stacked bar chart
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+</head>
+<body>
+
+  <!-- Word Cloud Background -->
+  <svg id="background-word-cloud"></svg>
+
+  <header class="page-header2">
+    
+  </header>
+
+      <div class="controls-container">
+        <!-- Chart Switcher -->
+        <div class="chart-switcher">
+          <button id="flatten-button">Interactive Compare</button>
+          <button id="radial-button" class="hidden">Mood Circles</button>
+          <!-- <button id="radar-button">Show Radar Chart</button> -->
+          <button id="line-button" class="hidden">Track Changes</button>
+        </div>
+
+        <!-- Line Chart Controls (Hidden Initially) -->
+        <div id="line-chart-controls" style="display: none;">
+          <label for="line-category-selector">Select Category:</label>
+          <select id="line-category-selector">
+            <option value="All">All</option>
+            <option value="Mild">Mild</option>
+            <option value="Minimal">Minimal</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Moderately Severe">Moderately Severe</option>
+            <option value="Severe">Severe</option>
+          </select>
+        </div>
+
+        
+      
+        <!-- Time Slider -->
+        <div id="time-slider-container">
+          <label for="time-slider">Year:</label>
+          <input type="range" id="time-slider" min="2000" max="2023" step="1" value="2000">
+          <span id="time-slider-value">2000</span>
+        </div>
+      
+        <!-- Dropdown Selectors -->
+        <div id="dropdown-container">
+          <label for="student-filter">Full Time Student:</label>
+          <select id="student-filter">
+            <option value="All">All</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+      
+          <label for="category-selector">Category:</label>
+          <select id="category-selector">
+            <option value="GAD7 Category">Anxiety</option>
+            <option value="PHQ9 Category">Depression</option>
+          </select>
+        </div>
+
+        <!-- Filters Container for Stacked Bar Chart -->
+  <div id="filters-container" class="stacked-bar-filters" style="display: none;">
+    <label for="gender-selector">Gender:</label>
+    <select id="gender-selector">
+      <option value="All">All</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
+    <label for="age-group-selector">Age Group:</label>
+    <select id="age-group-selector">
+      <option value="All">All</option>
+      <option value="18-20">15-20</option>
+      <option value="21-23">21-25</option>
+      <option value="24-25">26-30</option>
+    </select>
+
+    <!-- Time Spent on Social Media -->
+    <div class="time-spent-container">
+      <label for="time-slider" class="time-spent-title">Time Spent on Social Media:</label>
+      <div class="time-sliders">
+        <input type="range" id="time-slider-min" min="0" max="24" value="0">
+        <span>Min: <span id="min-hours">0</span> hours</span>
+      </div>
+      <div class="time-sliders">
+        <input type="range" id="time-slider-max" min="0" max="24" value="24">
+        <span>Max: <span id="max-hours">24</span> hours</span>
+      </div>
+    </div>
+  </div>
+      </div>
+
+      
+      
+      
+      
+      
+
+    <!-- Container for both the radial chart and word cloud -->
+    <div id="chart-container" class="chart-container">
+        <!-- Placeholder for Radial Chart -->
+        <div id="chart" class="chart"></div>
+        <div id="stacked-bar-chart" class="chart"></div>       
+        <!-- Placeholder for Word Cloud (centered inside the chart) -->
+        <div id="word-cloud" class="word-cloud"></div>
+        <div id="suggestions-container">
+          <h3>Here are some Suggestions:</h3>
+          <p><strong>Anxiety (Mild):</strong> Practice mindfulness or meditation to reduce stress.</p>
+          <p><strong>Depression (Minimal):</strong> Maintain a regular sleep schedule and balanced diet.</p>
+        </div>
+
+       
+      </div>
+
+
+    <!-- Tooltip for chart interaction -->
+    <div id="tooltip" class="tooltip"></div>
+  </div>
+
+
+  <!-- Footer for name and details -->
+  <footer class="footer">
+    <p>Contact: aayush.paudel@student-cs.fr |Peace.iyoha-osamuyi@student-cs.fr |GitHub: <a href="https://github.com/aayus97/social_media_mental_health" target="_blank"></a>aayus97</p>
+  </footer>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -53,5 +53,4 @@ project-folder/
 ```
 
 ## Live Demo
-
-If deployed via GitHub Pages, you can access the project at: https://aayus97.github.io/VisualAnalytics/
+You can access the project at: https://aayus97.github.io/VisualAnalytics/
